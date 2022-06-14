@@ -1,0 +1,67 @@
+
+<mujoco model="Humanoid">
+
+  <option gravity="0 0 -1" timestep="0.005"/>
+
+  <asset>
+    <mesh file="./mesh/base.stl" />
+    <mesh file="./mesh/wing.stl" />
+    <mesh file="./mesh/actuator_base.stl" />
+    <mesh file="./mesh/actuator_pushrod.stl" />
+    <material name="base_color" rgba="0 0 1 1" />
+    <material name="wing_color" rgba="0.0 0.6 0.5 1" />
+    <material name="actuator_rod_color" rgba="0.8 0.8 0.8 1" />
+    <material name="actuator_base_color" rgba="0.1 0.1 0.1 1" />
+    <texture type="skybox" builtin="gradient" rgb1=".3 .5 .7" rgb2="0 0 0" width="512" height="512"/>
+    <texture name="grid" type="2d" builtin="checker" width="512" height="512" rgb1=".1 .2 .3" rgb2=".2 .3 .4"/>
+    <material name="grid" texture="grid" texrepeat="10 10" texuniform="true" reflectance=".2"/>
+  </asset>
+
+  <worldbody>
+    <geom name="floor" size="0 0 .05" type="plane" material="grid" condim="3"/>
+    <light name="spotlight" mode="targetbodycom" target="base" diffuse="0.8 0.8 0.8" specular="0.2 0.2 0.2" pos="0 -20 20" cutoff="20"/>
+    <body name="base" pos="0 0 0"> 
+        <freejoint name="base_joint"/>
+        <geom name="base_mesh" type="mesh" mesh="base" pos="0 0 0" contype="1" conaffinity="1"material="base_color"/> 
+        <body name="actuator_base_lower" pos="-0.10 -0.265 0.40"> 
+            <joint name="actuator_base_lower" type="ball" pos="0 0 0" stiffness="0.0" damping="0.0" /> 
+            <geom name="actuator_base_lower_mesh" type="mesh" mesh="actuator_base" pos="0 0 0" contype="2" conaffinity="2" material="actuator_base_color"/>
+            <body name="actuator_rod_lower" pos="0 0.22750 0">
+                <joint name="actuator_lower_slider" type="slide" pos="0 0 0 " axis="0 1 0" range="-1 1" springref="0"/>
+                <geom name="actuator_rod_lower_mesh" type="mesh" mesh="actuator_pushrod" pos="0 0 0" contype="4" conaffinity="4" material="actuator_rod_color" />
+            </body>
+        </body>
+        <body name="actuator_base_upper" pos="-0.10 -0.265 0.50">
+            <joint name="actuator_base_upper" type="ball" pos="0 0 0" stiffness="0.0" damping="0.0" /> 
+            <geom name="actuator_base_upper_mesh" type="mesh" mesh="actuator_base" pos="0 0 0" contype="8" conaffinity="8" material="actuator_base_color"/>
+            <body name="actuator_rod_upper" pos="0 0.22750 0">
+                <joint name="actuator_upper_slider" type="slide" pos="0 0 0 " axis="0 1 0" range="-1 1" springref="0"/>
+                <geom name="actuator_rod_upper_mesh" type="mesh" mesh="actuator_pushrod" pos="0 0 0" contype="16" conaffinity="16" material="actuator_rod_color" />
+            </body>
+        </body>
+        <body name="wing" pos="0.0 0.25 0.45">
+            <joint name="wing_joint_z" type="hinge" pos="0 0 0" axis="0 0 1" stiffness="0.0" damping="0.0"/>
+            <joint name="wing_joint_x" type="hinge" pos="0 0 0" axis="1 0 0" stiffness="0.0" damping="0.0"/>
+            <!-- <joint name="wing_joint_y" type="hinge" pos="0 0 0" axis="0 1 0" stiffness="8.0" damping="1.0"/> -->
+            <geom name="wing_mesh" type="mesh" mesh="wing" pos="0 0 0" euler="90 0 0" contype="32" conaffinity="32" material="wing_color"/>
+            <inertial pos="0 0 0" mass="0.01" diaginertia="0.01 0.01 0.01"/>
+        </body>
+    </body>
+  </worldbody>
+
+  <equality>
+      <connect name="connect_rod_upper_to_wing" active="true" body1="wing" body2="actuator_rod_upper" anchor="-0.1 0.0  0.05" solref="0.01 1" />
+      <connect name="connect_rod_lower_to_wing" active="true" body1="wing" body2="actuator_rod_lower" anchor="-0.1 0.0 -0.05" solref="0.01 1" /> 
+  </equality>
+
+  <actuator> 
+      <motor name="lower_motor" joint="actuator_lower_slider" forcelimited="true" forcerange="-20000 20000"/> 
+      <position name="lower_position_servo" joint="actuator_lower_slider" kp="30000" />
+      <velocity name="lower_velocity_servo" joint="actuator_lower_slider" kv="20" />
+      <motor name="upper_motor" joint="actuator_upper_slider" forcelimited="true" forcerange="-20000 20000"/> 
+      <position name="upper_position_servo" joint="actuator_upper_slider" kp="30000" />
+      <velocity name="upper_velocity_servo" joint="actuator_upper_slider" kv="20" />
+  </actuator>
+
+</mujoco>
+
