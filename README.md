@@ -1,7 +1,7 @@
 ## wing_hinge_model
 
-Simple model of the wing hinge using mujoco.
+An overly simple model of a fly wing hinge using mujoco.
 
-
+![screenshot](images/wing_hinge_model_image.png)
 
 
