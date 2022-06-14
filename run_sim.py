@@ -42,11 +42,61 @@ if __name__ == '__main__':
 
     period = 1.0
 
-    upper_amp = 0.090
-    lower_amp = 0.085
+    if 0:
+        # Same amplitude (low), same phase 
+        upper_amp = 0.05
+        lower_amp = 0.05
+        upper_phase = 0.0*period
+        lower_phase = 0.0*period 
 
-    upper_phase = 0.00*period
-    lower_phase = 0.17*period 
+    if 0:
+        # Same amplitude (high), same phase 
+        upper_amp = 0.07
+        lower_amp = 0.07
+        upper_phase = 0.0*period
+        lower_phase = 0.0*period 
+
+    if 1:
+        # Amplitude zero and high, same phase 
+        upper_amp = 0.0
+        lower_amp = 0.07
+        upper_phase = 0.0*period
+        lower_phase = 0.0*period 
+
+    if 0:
+        # Different amplitude (low), same phase 
+        upper_amp = 0.02
+        lower_amp = 0.05
+        upper_phase = 0.0*period
+        lower_phase = 0.0*period 
+
+    if 0:
+        # Different amplitude (high), same phase 
+        upper_amp = 0.04
+        lower_amp = 0.08
+        upper_phase = 0.0*period
+        lower_phase = 0.0*period 
+
+    if 0:
+        # Same amplitude (low) w/ phase shift
+        upper_amp = 0.05
+        lower_amp = 0.05
+        upper_phase = 0.00*period
+        lower_phase = 0.20*period 
+
+    if 0:
+        # Same amplitude (high) w/ phase shift
+        upper_amp = 0.090
+        lower_amp = 0.090
+        upper_phase = 0.00*period
+        lower_phase = 0.17*period 
+
+    if 0:
+        # Different amplitude w/ phase shift
+        upper_amp = 0.090
+        lower_amp = 0.080
+        upper_phase = 0.00*period
+        lower_phase = 0.17*period 
 
     startup_frac = 1.5
 

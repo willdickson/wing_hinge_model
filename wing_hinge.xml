@@ -1,5 +1,5 @@
 
-<mujoco model="Humanoid">
+<mujoco model="WingHinge">
 
   <option gravity="0 0 -1" timestep="0.005"/>
 
