@@ -56,7 +56,7 @@ if __name__ == '__main__':
         upper_phase = 0.0*period
         lower_phase = 0.0*period 
 
-    if 1:
+    if 0:
         # Amplitude zero and high, same phase 
         upper_amp = 0.0
         lower_amp = 0.07
@@ -91,7 +91,7 @@ if __name__ == '__main__':
         upper_phase = 0.00*period
         lower_phase = 0.17*period 
 
-    if 0:
+    if 1:
         # Different amplitude w/ phase shift
         upper_amp = 0.090
         lower_amp = 0.080
@@ -138,16 +138,18 @@ if __name__ == '__main__':
     wing_joint_z_data = np.rad2deg(np.array(wing_joint_z_data))
 
     fg, ax = plt.subplots(2,1,sharex=True)
-    ax[0].plot(t, lower_slider_data)
-    ax[0].plot(t, upper_slider_data)
-    ax[0].set_ylabel('slider len')
+    h_lower, = ax[0].plot(t, lower_slider_data)
+    h_upper, = ax[0].plot(t, upper_slider_data)
+    ax[0].set_ylabel('rod lenght')
     ax[0].grid(True)
+    ax[0].legend((h_lower, h_upper), ('lower', 'upper'), loc='upper right')
 
-    ax[1].plot(t, wing_joint_x_data)
-    ax[1].plot(t, wing_joint_z_data)
-    ax[1].set_ylabel('wing ang')
+    h_x, = ax[1].plot(t, wing_joint_x_data)
+    h_y, = ax[1].plot(t, wing_joint_z_data)
+    ax[1].set_ylabel('wing angle')
     ax[1].set_xlabel('t (sec)')
     ax[1].grid(True)
+    ax[1].legend((h_x, h_y), ('rotation', 'stroke pos'), loc='upper right')
 
     plt.show()
 
