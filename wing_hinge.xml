@@ -8,11 +8,12 @@
     <mesh file="./mesh/wing.stl" />
     <mesh file="./mesh/actuator_base.stl" />
     <mesh file="./mesh/actuator_pushrod.stl" />
+
     <material name="base_color" rgba="0 0 1 1" />
     <material name="wing_color" rgba="0.0 0.6 0.5 1" />
     <material name="actuator_rod_color" rgba="0.8 0.8 0.8 1" />
     <material name="actuator_base_color" rgba="0.1 0.1 0.1 1" />
-    <texture type="skybox" builtin="gradient" rgb1=".3 .5 .7" rgb2="0 0 0" width="512" height="512"/>
+
     <texture name="grid" type="2d" builtin="checker" width="512" height="512" rgb1=".1 .2 .3" rgb2=".2 .3 .4"/>
     <material name="grid" texture="grid" texrepeat="10 10" texuniform="true" reflectance=".2"/>
   </asset>
