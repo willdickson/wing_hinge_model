@@ -24,13 +24,13 @@
         pos="0 -20 20" cutoff="20"/>
     <body name="base" pos="0 0 0"> 
         <freejoint name="base_joint"/>
-        <geom name="base_mesh" type="mesh" mesh="base" pos="0 0 0" contype="1" conaffinity="1"material="base_color"/> 
+        <geom name="base_mesh" type="mesh" mesh="base" pos="0 0 0" contype="1" conaffinity="1" material="base_color"/> 
         <body name="actuator_base_lower" pos="-0.10 -0.265 0.40"> 
             <joint name="actuator_base_lower" type="ball" pos="0 0 0" stiffness="0.0" damping="0.0" /> 
             <geom name="actuator_base_lower_mesh" type="mesh" mesh="actuator_base" pos="0 0 0" contype="2" conaffinity="2" 
                 material="actuator_base_color"/>
             <body name="actuator_rod_lower" pos="0 0.22750 0">
-                <joint name="actuator_lower_slider" type="slide" pos="0 0 0 " axis="0 1 0" range="-1 1" springref="0"/>
+                <joint name="actuator_lower_slider" type="slide" pos="0 0 0 " axis="0 1 0" range="-1 1" limited="true" springref="0"/>
                 <geom name="actuator_rod_lower_mesh" type="mesh" mesh="actuator_pushrod" pos="0 0 0" contype="4" 
                     conaffinity="4" material="actuator_rod_color" />
             </body>
@@ -40,7 +40,7 @@
             <geom name="actuator_base_upper_mesh" type="mesh" mesh="actuator_base" pos="0 0 0" contype="8" conaffinity="8" 
                 material="actuator_base_color"/>
             <body name="actuator_rod_upper" pos="0 0.22750 0">
-                <joint name="actuator_upper_slider" type="slide" pos="0 0 0 " axis="0 1 0" range="-1 1" springref="0"/>
+                <joint name="actuator_upper_slider" type="slide" pos="0 0 0 " axis="0 1 0" range="-1 1" limited="true" springref="0"/>
                 <geom name="actuator_rod_upper_mesh" type="mesh" mesh="actuator_pushrod" pos="0 0 0" contype="16" 
                     conaffinity="16" material="actuator_rod_color" />
             </body>
