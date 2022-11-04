@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<mujoco>
+  <compiler coordinate="global" angle="radian"/>
+  <option gravity="0.0 0.0 -9.81" timestep="0.005"/>
+  <asset>
+    <mesh file="./mesh_files/mount_plate.stl"/>
+    <mesh file="./mesh_files/sla.stl"/>
+    <mesh file="./mesh_files/scu.stl"/>
+    <mesh file="./mesh_files/pwp.stl"/>
+    <mesh file="./mesh_files/mu1.stl"/>
+    <mesh file="./mesh_files/mu1.stl"/>
+    <mesh file="./mesh_files/ax1_and_vein.stl"/>
+    <mesh file="./mesh_files/wing.stl"/>
+    <material name="color_0" rgba="0.00 1.00 1.00 1.00"/>
+    <material name="color_1" rgba="0.80 0.80 0.80 0.20"/>
+    <material name="color_2" rgba="0.67 1.00 1.00 0.20"/>
+    <material name="color_3" rgba="1.00 0.67 0.00 1.00"/>
+    <material name="color_4" rgba="1.00 0.33 1.00 1.00"/>
+    <material name="color_5" rgba="1.00 0.00 0.00 1.00"/>
+    <material name="color_6" rgba="0.33 0.67 0.00 1.00"/>
+    <texture name="grid" type="2d" builtin="checker" width="512" height="512" rgb1="0.1 0.2 0.3" rgb2="0.2 0.3 0.4"/>
+    <material name="grid" texture="grid" texrepeat="10 10" texuniform="false" reflectance=".2"/>
+  </asset>
+  <worldbody>
+    <geom name="floor" type="plane" material="grid" condim="3" size="2800.0000000000027 2800.0000000000027 0.05"/>
+    <light name="spotlight" mode="targetbodycom" diffuse="0.8 0.8 0.8" specular="0.2 0.2 0.2" pos="368.1300547796101 74.97305414007265 420.00000000000045" cutoff="560.0000000000006" target="mount_plate_001"/>
+    <body name="mount_plate_001" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0">
+      <geom name="mount_plate_001_mesh" type="mesh" mesh="mount_plate" material="color_1" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0"/>
+      <freejoint name="mount_plate_001_joint"/>
+      <body name="sla_001" pos="-0.5000000000002663 19.99999999379196 233.72669307513883" quat="6.317222293885728e-09 0.7071067855762254 -0.7071067767968696 6.317220958106056e-09">
+        <geom name="sla_001_mesh" type="mesh" mesh="sla" material="color_3" pos="-0.5000000000002663 19.99999999379196 233.72669307513883" quat="6.317222293885728e-09 0.7071067855762254 -0.7071067767968696 6.317220958106056e-09"/>
+        <joint name="sla_001_joint" type="hinge" pos="-0.5000000000002663 19.99999999379196 233.72669307513883" axis="1.0 0.0 0.0" limited="false" springref="0"/>
+        <body name="mu1_002" pos="29.50026258546033 -10.005530674903877 233.0343186361782" quat="0.5736740901921126 -0.00011128619264834649 0.8190836309046292 -0.00017731814509230973">
+          <geom name="mu1_002_mesh" type="mesh" mesh="mu1" material="color_0" pos="29.50026258546033 -10.005530674903877 233.0343186361782" quat="0.5736740901921126 -0.00011128619264834649 0.8190836309046292 -0.00017731814509230973"/>
+          <joint name="mu1_002_joint_axis1" type="hinge" pos="29.50026258546033 -10.005530674903877 233.0343186361782" axis="1.0 1.2415884083011619e-08 -2.222044605562574e-15" limited="false" springref="0" stiffness="6.0e9" damping="1.0e7"/>
+          <joint name="mu1_002_joint_axis2" type="hinge" pos="29.50026258546033 -10.005530674903877 233.0343186361782" axis="1.2415884003197061e-08 -0.9999999999999998 1.7867801000000004e-08" limited="false" springref="0" stiffness="6.0e9" damping="1.0e7"/>
+        </body>
+      </body>
+      <body name="scu_001" pos="-0.5000002746913661 -20.000000000076817 263.66919237204286" quat="0.5000000044604502 -0.4999999992360228 0.5000000007639748 0.4999999955395524">
+        <geom name="scu_001_mesh" type="mesh" mesh="scu" material="color_5" pos="-0.5000002746913661 -20.000000000076817 263.66919237204286" quat="0.5000000044604502 -0.4999999992360228 0.5000000007639748 0.4999999955395524"/>
+        <joint name="scu_001_joint" type="slide" pos="-0.5000002746913661 -20.000000000076817 263.66919237204286" axis="0.0 0.0 1.0" limited="false" springref="0"/>
+        <body name="mu1_001" pos="29.49969499483115 -19.999211013941903 233.03407600795703" quat="0.5734710906582258 -0.005081802576795597 0.8191958235059306 0.004825578957574762">
+          <geom name="mu1_001_mesh" type="mesh" mesh="mu1" material="color_0" pos="29.49969499483115 -19.999211013941903 233.03407600795703" quat="0.5734710906582258 -0.005081802576795597 0.8191958235059306 0.004825578957574762"/>
+          <joint name="mu1_001_joint_axis1" type="hinge" pos="29.49969499483115 -19.999211013941903 233.03407600795703" axis="1.0 -1.0448849591115916e-08 7.3929458666022185e-09" limited="false" springref="0" stiffness="6.0e9" damping="1.0e7"/>
+          <joint name="mu1_001_joint_axis2" type="hinge" pos="29.49969499483115 -19.999211013941903 233.03407600795703" axis="1.0448849840916097e-08 1.0000000000000002 5.079270337660091e-15" limited="false" springref="0" stiffness="6.0e9" damping="1.0e7"/>
+        </body>
+      </body>
+      <body name="pwp_001" pos="-0.4999997266080717 -15.01999999779756 191.9658076249812" quat="0.5000000024124049 0.500000003937422 -0.49999999606258205 0.49999999758759106">
+        <geom name="pwp_001_mesh" type="mesh" mesh="pwp" material="color_4" pos="-0.4999997266080717 -15.01999999779756 191.9658076249812" quat="0.5000000024124049 0.500000003937422 -0.49999999606258205 0.49999999758759106"/>
+        <body name="ax1_and_vein_001" pos="34.50004925768372 -15.01536011682083 226.9657961653326" quat="0.999999985966819 -1.6594817426644958e-05 -1.8416061903482224e-07 -0.0001667061481548942">
+          <geom name="ax1_and_vein_001_mesh" type="mesh" mesh="ax1_and_vein" material="color_6" pos="34.50004925768372 -15.01536011682083 226.9657961653326" quat="0.999999985966819 -1.6594817426644958e-05 -1.8416061903482224e-07 -0.0001667061481548942" density="0.001"/>
+          <joint name="ax1_and_vein_001_joint_alpha" type="hinge" pos="34.50004925768372 -15.01536011682083 226.9657961653326" axis="1.0 3.050025926265576e-09 -1.269965427264097e-08" limited="false"/>
+          <joint name="ax1_and_vein_001_joint_phi" type="hinge" pos="34.50004925768372 -15.01536011682083 226.9657961653326" axis="-3.0500261205546053e-09 1.0 8.132383655379272e-15" limited="false"/>
+          <joint name="ax1_and_vein_001_joint_theta" type="hinge" pos="34.50004925768372 -15.01536011682083 226.9657961653326" axis="1.2699653995085214e-08 -8.215650381887537e-15 1.0" limited="false"/>
+          <body name="wing_001" pos="44.50005031796918 -15.027808421226009 227.5333097691321" quat="1.25429395223964e-05 0.9999999920102055 -0.00012578650674373315 1.3496701988464614e-07">
+            <geom name="wing_001_mesh" type="mesh" mesh="wing" material="color_2" pos="44.50005031796918 -15.027808421226009 227.5333097691321" quat="1.25429395223964e-05 0.9999999920102055 -0.00012578650674373315 1.3496701988464614e-07" density="0.001"/>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <equality>
+    <connect body1="mu1_001" body2="ax1_and_vein_001" anchor="27.70277640968351 -20.01305642740742 228.1009595720069" solimp="1.0 1.0 0.001 0.5 2.0"/>
+    <connect body1="mu1_002" body2="ax1_and_vein_001" anchor="27.706110532660936 -10.013056988733975 228.10062767627704" solimp="1.0 1.0 0.001 0.5 2.0"/>
+  </equality>
+  <actuator>
+    <position name="sla_001_position" joint="sla_001_joint" gear="1" forcelimited="false" ctrllimited="false" kp="6.0e11"/>
+    <velocity name="sla_001_velocity" joint="sla_001_joint" gear="1" forcelimited="false" ctrllimited="false" kv="1.0e10"/>
+    <position name="scu_001_position" joint="scu_001_joint" gear="1" forcelimited="false" ctrllimited="false" kp="6.0e8"/>
+    <velocity name="scu_001_velocity" joint="scu_001_joint" gear="1" forcelimited="false" ctrllimited="false" kv="1.0e8"/>
+  </actuator>
+</mujoco>
