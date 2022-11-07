@@ -50,9 +50,9 @@ if __name__ == '__main__':
     viewer.cam.lookat = [20.0, -15.0, 230.0]
     
 
-    period = 1.0
+    period = 2.0
 
-    if 1:
+    if 0:
         scu_to_sla_scale = math.acos(1.0/30.0)
         scu_amplitude = 8.0
         scu_phase = 0.5*period
@@ -68,6 +68,14 @@ if __name__ == '__main__':
         sla_amplitude = 1.5*np.deg2rad(scu_to_sla_scale*scu_amplitude)
         sla_phase = 0.15*period
         sla_offset = -np.deg2rad(scu_to_sla_scale*scu_offset)
+    if 1:
+        scu_to_sla_scale = 1.0*math.acos(1.0/30.0)
+        scu_amplitude = 4.0 
+        scu_phase = 0.5*period
+        scu_offset = -1.0 
+        sla_amplitude = 1.0*np.deg2rad(scu_to_sla_scale*scu_amplitude)
+        sla_phase = 0.2*period
+        sla_offset = -np.deg2rad(scu_to_sla_scale*scu_offset)
 
     t_list = []
     phi_list = []
@@ -80,24 +88,34 @@ if __name__ == '__main__':
         mujoco.mj_step(model, data)
         start_value  = soft_start(data.time, period)
         
-        if data.time < 100*period:
-            sla_pos, sla_vel = sin_motion(data.time, sla_amplitude, sla_phase, period)
-            data.actuator('sla_001_position').ctrl = start_value*(sla_pos + sla_offset)
-            data.actuator('sla_001_velocity').ctrl = start_value*sla_vel
+        sla_setp_pos, sla_setp_vel = sin_motion(data.time, sla_amplitude, sla_phase, period)
+        sla_setp_pos += sla_offset
 
-            scu_pos, scu_vel = sin_motion(data.time, scu_amplitude, scu_phase, period)
-            data.actuator('scu_001_position').ctrl = start_value*(scu_pos + scu_offset)
-            data.actuator('scu_001_velocity').ctrl = start_value*scu_vel
+        data.actuator('sla_001_position').ctrl = start_value*(sla_setp_pos)
+        data.actuator('sla_001_velocity').ctrl = start_value*sla_setp_vel
+
+        scu_setp_pos, scu_setp_vel = sin_motion(data.time, scu_amplitude, scu_phase, period)
+        scu_setp_pos += scu_offset
+
+        data.actuator('scu_001_position').ctrl = start_value*(scu_setp_pos)
+        data.actuator('scu_001_velocity').ctrl = start_value*scu_setp_vel
 
         try:
             viewer.render()
         except:
             done = True
 
-        sla_error_rad = sla_pos - data.joint('sla_001_joint').qpos[0]
-        sla_error_deg = np.rad2deg(sla_error_rad)
-        scu_error = scu_pos - data.joint('scu_001_joint').qpos[0]
-        print(sla_error_deg, scu_error)
+        if 1:
+            sla_pos = data.joint('sla_001_joint').qpos[0]
+            sla_error = sla_setp_pos - sla_pos
+            print(f'{np.rad2deg(sla_setp_pos):1.4f}, {np.rad2deg(sla_pos):1.4f}, {np.rad2deg(sla_error):1.4f}')
+
+        if 1:
+            scu_pos = data.joint('scu_001_joint').qpos[0]
+            scu_error = scu_setp_pos - scu_pos
+            print(f'{scu_setp_pos:1.4f}, {scu_pos:1.4f}, {scu_error:1.4f}')
+            print()
+
 
         t_list.append(data.time)
 
