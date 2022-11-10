@@ -38,29 +38,55 @@ def sin_motion(t, amplitude, phase, offset, period):
     vel *= start_value
     return pos, vel
 
+class MotionElem:
+
+    def __init__(self, t_vals, azimuth_vals, elevation_vals, distance_vals):
+        self.t_vals = t_vals
+        self.azimuth_vals = azimuth_vals
+        self.elevation_vals = elevation_vals
+        self.distance_vals = distance_vals
+
+    def azimuth(self, t):
+        value = np.interp(t, self.t_vals, self.azimuth_vals, left=self.azimuth_vals[0], right=self.azimuth_vals[1])
+        return value
+
+    def elevation(self, t):
+        value = np.interp(t, self.t_vals, self.elevation_vals, left=self.elevation_vals[0], right=self.elevation_vals[1])
+        return value
+
+    def distance(self,t):
+        value = np.interp(t, self.t_vals, self.distance_vals, left=self.distance_vals[0], right=self.distance_vals[1])
+        return value
+
+    def active(self,t):
+        if t >= self.t_vals[0] and t < self.t_vals[1]:
+            return True
+        else:
+            return False
+
+
 
 # ------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
+
 
     model = mujoco.MjModel.from_xml_path('model.xml')
     data = mujoco.MjData(model)
 
     viewer = mujoco_viewer.MujocoViewer(model, data)
     viewer.scn.flags[mujoco.mjtRndFlag.mjRND_SHADOW] = False
-    viewer.render_mode = 'window'
-    #viewer.render_mode = 'offscreen'
+    #viewer.render_mode = 'window'
+    viewer.render_mode = 'offscreen'
 
     signal.signal(signal.SIGINT, sigint_handler)
     
     viewer.cam.distance = 500 
     viewer.cam.azimuth =  90 
     viewer.cam.elevation = -4
-    #viewer.cam.lookat = [20.0, -15.0, 230.0]
-    #viewer.cam.lookat = [100.0, -100.0, 230.0]
     viewer.cam.lookat = [0.0, 0.0, 230.0]
     
 
-    period = 2.0
+    period = 1.0
 
     scu_to_sla_scale = 1.0*math.acos(1.0/30.0)
     scu_amplitude = 5.0
@@ -84,7 +110,20 @@ if __name__ == '__main__':
     phi_list = []
     alpha_list = []
     theta_list = []
-    
+
+    motion_program = [
+            MotionElem( ( 0*period,  2*period), (90.0,   90.0), (-4.0,   -4.0), (500, 500) ),
+            MotionElem( ( 3*period,  6*period), (90.0,   90.0), (-4.0,  -21.0), (500, 500) ),
+            MotionElem( ( 6*period,  9*period), (90.0,  190.0), (-21.0, -21.0), (500, 500) ),
+            MotionElem( ( 9*period, 12*period), (190.0, 190.0), (-21.0, -21.0), (500, 200) ),
+            MotionElem( (12*period, 15*period), (190.0,  90.0), (-21.0,  -4.0), (200, 200) ),
+            MotionElem( (15*period, 18*period), (90.0,   90.0), (-4.0,   -4.0), (200, 500) ),
+            ]
+
+    frame_count = 0
+    output_dir = 'frames'
+    os.makedirs(os.path.join(os.curdir, output_dir), exist_ok=True)
+
 
     while not done:
 
@@ -120,6 +159,13 @@ if __name__ == '__main__':
                 frame = viewer.read_pixels()
         except:
             done = True
+            
+        if frame is not None:
+            filename = os.path.join(output_dir, f'frame_{frame_count:06d}.npy')
+            print(filename)
+            np.save(filename, frame)
+            frame_count += 1
+
 
         if 0:
             sla_pos = data.joint('sla_001_joint').qpos[0]
@@ -142,6 +188,14 @@ if __name__ == '__main__':
             print(f'elevation: {viewer.cam.elevation}')
             print(f'lookat:   {viewer.cam.lookat}')
             print()
+            
+        for elem in motion_program:
+            if elem.active(data.time):
+                viewer.cam.azimuth = elem.azimuth(data.time)
+                viewer.cam.elevation = elem.elevation(data.time)
+                viewer.cam.distance = elem.distance(data.time)
+        if data.time > elem.t_vals[1]:
+            done = True
 
 
         t_list.append(data.time)
