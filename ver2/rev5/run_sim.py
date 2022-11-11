@@ -43,6 +43,7 @@ if __name__ == '__main__':
     data = mujoco.MjData(model)
 
     viewer = mujoco_viewer.MujocoViewer(model, data)
+    viewer.scn.flags[mujoco.mjtRndFlag.mjRND_SHADOW] = False
     signal.signal(signal.SIGINT, sigint_handler)
     
     viewer.cam.distance = 100

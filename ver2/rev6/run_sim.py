@@ -163,7 +163,7 @@ phi = phi - phi.mean()
 alpha = np.rad2deg(np.array(alpha_list))
 theta = np.rad2deg(np.array(theta_list))
 
-if 0:
+if 1:
     fig, ax = plt.subplots(1,1)
     phi_line, = ax.plot(t,phi,'b')
     alpha_line, = ax.plot(t,alpha,'g')
@@ -172,7 +172,7 @@ if 0:
     ax.set_xlabel('t')
     ax.set_ylabel('angle')
     ax.legend((phi_line, alpha_line, theta_line), ('phi', 'alpha', 'theta'), loc='upper right')
-if 0:
+if 1:
     fig, ax = plt.subplots(1,1)
     ax.plot(t,ax4_setp_pos, 'r')
     ax.plot(t,ax4_pos,'b')

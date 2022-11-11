@@ -114,7 +114,10 @@ if __name__ == '__main__':
     while not done:
 
         mujoco.mj_step(model, data)
-        viewer.render()
+        try:
+            viewer.render()
+        except:
+            done = True
         startup_val = soft_start(data.time, startup_frac*period)
         upper_pos, upper_vel = sin_kinematics(data.time, upper_amp, upper_phase, period)
         data.actuator('upper_position_servo').ctrl = upper_pos*startup_val
