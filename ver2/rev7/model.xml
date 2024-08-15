@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+<mujoco>
+  <compiler coordinate="global" angle="radian"/>
+  <option gravity="0.0 0.0 -9.81" timestep="0.005"/>
+  <asset>
+    <mesh file="./mesh_files/mount_plate.stl"/>
+    <mesh file="./mesh_files/sla.stl"/>
+    <mesh file="./mesh_files/scu.stl"/>
+    <mesh file="./mesh_files/pwp.stl"/>
+    <mesh file="./mesh_files/mu1.stl"/>
+    <mesh file="./mesh_files/mu1.stl"/>
+    <mesh file="./mesh_files/ax1_and_vein.stl"/>
+    <mesh file="./mesh_files/wing.stl"/>
+    <mesh file="./mesh_files/ax4_and_canoe.stl"/>
+    <mesh file="./mesh_files/ax3.stl"/>
+    <mesh file="./mesh_files/ax1.stl"/>
+    <mesh file="./mesh_files/ax2.stl"/>
+    <mesh file="./mesh_files/vein.stl"/>
+    <mesh file="./mesh_files/ax4.stl"/>
+    <mesh file="./mesh_files/canoe.stl"/>
+    <material name="color_0" rgba="0.44 0.31 0.22 1.00"/>
+    <material name="color_1" rgba="0.93 0.63 0.60 1.00"/>
+    <material name="color_2" rgba="0.75 0.75 0.75 1.00"/>
+    <material name="color_3" rgba="0.01 0.48 0.00 1.00"/>
+    <material name="color_4" rgba="1.00 1.00 1.00 0.00"/>
+    <material name="color_5" rgba="0.99 0.00 0.84 1.00"/>
+    <material name="color_6" rgba="0.51 0.58 1.00 1.00"/>
+    <material name="color_7" rgba="0.00 0.00 1.00 1.00"/>
+    <material name="color_8" rgba="0.53 0.00 0.67 1.00"/>
+    <material name="color_9" rgba="0.59 0.59 0.59 0.25"/>
+    <material name="color_10" rgba="0.01 0.65 0.00 1.00"/>
+    <material name="color_11" rgba="0.59 0.59 0.59 0.10"/>
+    <texture name="grid" type="2d" builtin="checker" width="512" height="512" rgb1="0.2 0.3 0.4" rgb2="0.3 0.4 0.5"/>
+    <material name="grid" texture="grid" texrepeat="10 10" texuniform="false" reflectance=".2"/>
+  </asset>
+  <worldbody>
+    <geom name="floor" type="plane" material="grid" condim="3" pos="0.0 0.0 0.0" size="2800.0000000000027 2800.0000000000027 0.05"/>
+    <light name="spotlight" mode="targetbodycom" diffuse="0.8 0.8 0.8" specular="0.2 0.2 0.2" pos="0.0 0.0 28000.00000000003" cutoff="560.0000000000006" target="mount_plate_001"/>
+    <body name="mount_plate_001" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0">
+      <geom name="mount_plate_001_mesh" type="mesh" mesh="mount_plate" material="color_11" pos="0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0"/>
+      <freejoint name="mount_plate_001_joint"/>
+      <body name="sla_001" pos="-0.500000000000266 19.99999999379196 233.72669307513883" quat="6.317222293885728e-09 0.7071067855762254 -0.7071067767968696 6.317220958106056e-09">
+        <geom name="sla_001_mesh" type="mesh" mesh="sla" material="color_1" pos="-0.500000000000266 19.99999999379196 233.72669307513883" quat="6.317222293885728e-09 0.7071067855762254 -0.7071067767968696 6.317220958106056e-09"/>
+        <joint name="sla_001_joint" type="hinge" pos="-0.500000000000266 19.99999999379196 233.72669307513883" axis="1.0 0.0 0.0" limited="false" springref="0"/>
+        <body name="mu1_002" pos="29.498580022091176 -10.005130347247544 233.03488698560724" quat="0.5741579351490356 -0.00014290587552013466 0.81874454809484 -0.00010024112316336921">
+          <geom name="mu1_002_mesh" type="mesh" mesh="mu1" material="color_0" pos="29.498580022091176 -10.005130347247544 233.03488698560724" quat="0.5741579351490356 -0.00014290587552013466 0.81874454809484 -0.00010024112316336921" density="0.001"/>
+          <joint name="mu1_002_joint_axis1" type="hinge" pos="29.498580022091176 -10.005130347247544 233.03488698560724" axis="1.0 1.2415884083011619e-08 -2.222044605562574e-15" limited="false" springref="0"/>
+          <joint name="mu1_002_joint_axis2" type="hinge" pos="29.498580022091176 -10.005130347247544 233.03488698560724" axis="1.2415884003197061e-08 -0.9999999999999998 1.7867801000000004e-08" limited="false" springref="0"/>
+        </body>
+        <body name="ax4_and_canoe_001" pos="30.067500232739725 3.63768699e-07 233.72669342627427" quat="0.890161215478691 0.014352641420238304 0.17423841823319997 -0.4207707044856548">
+          <geom name="ax4_and_canoe_001_mesh" type="mesh" mesh="ax4_and_canoe" material="color_4" pos="30.067500232739725 3.63768699e-07 233.72669342627427" quat="0.890161215478691 0.014352641420238304 0.17423841823319997 -0.4207707044856548" density="0.001"/>
+          <joint name="ax4_and_canoe_001_joint_axis1" type="hinge" pos="30.067500232739725 3.63768699e-07 233.72669342627427" axis="1.2415884003197061e-08 -0.9999999999999998 1.7867801000000004e-08" limited="false" springref="0"/>
+          <joint name="ax4_and_canoe_001_joint_axis2" type="hinge" pos="30.067500232739725 3.63768699e-07 233.72669342627427" axis="-1.778155455961102e-15 -1.7867801000000024e-08 -1.0" limited="false" springref="0"/>
+          <body name="ax3_001" pos="32.8769370816256 -3.575481410346475 232.17753589420738" quat="0.8901112619152284 0.014345730833481925 0.17426482084709158 -0.4208656717215888">
+            <geom name="ax3_001_mesh" type="mesh" mesh="ax3" material="color_3" pos="32.8769370816256 -3.575481410346475 232.17753589420738" quat="0.8901112619152284 0.014345730833481925 0.17426482084709158 -0.4208656717215888" density="0.001"/>
+            <joint name="ax3_001_joint" type="slide" pos="32.8769370816256 -3.575481410346475 232.17753589420738" axis="0.5851859757164767 -0.74410596040849 -0.3222789063983468" limited="false" springref="0"/>
+          </body>
+          <body name="ax4_001" pos="30.06618670714572 0.001644218318072641 233.72740013067258" quat="0.8885176292796372 0.05598285119717852 0.1543587088996535 -0.4284573862334037">
+            <geom name="ax4_001_mesh" type="mesh" mesh="ax4" material="color_8" pos="30.06618670714572 0.001644218318072641 233.72740013067258" quat="0.8885176292796372 0.05598285119717852 0.1543587088996535 -0.4284573862334037" density="0.001"/>
+          </body>
+          <body name="canoe_001" pos="30.06334107416226 0.002454006733698989 233.72060396213718" quat="-0.8865073114634988 -0.08186484516799801 -0.14179458460624608 0.43277849949335656">
+            <geom name="canoe_001_mesh" type="mesh" mesh="canoe" material="color_10" pos="30.06334107416226 0.002454006733698989 233.72060396213718" quat="-0.8865073114634988 -0.08186484516799801 -0.14179458460624608 0.43277849949335656" density="0.001"/>
+          </body>
+        </body>
+      </body>
+      <body name="scu_001" pos="-0.500000017829198 -19.999999997562195 263.66919307866766" quat="0.5000000044604502 -0.4999999992360228 0.5000000007639748 0.4999999955395524">
+        <geom name="scu_001_mesh" type="mesh" mesh="scu" material="color_1" pos="-0.500000017829198 -19.999999997562195 263.66919307866766" quat="0.5000000044604502 -0.4999999992360228 0.5000000007639748 0.4999999955395524"/>
+        <joint name="scu_001_joint" type="slide" pos="-0.500000017829198 -19.999999997562195 263.66919307866766" axis="0.0 0.0 1.0" limited="false" springref="0"/>
+        <body name="mu1_001" pos="29.499314818359505 -20.000088078042 233.0341561461596" quat="0.5737077962021063 -0.0034605152912729124 0.8190473813344117 0.0029625225879932183">
+          <geom name="mu1_001_mesh" type="mesh" mesh="mu1" material="color_0" pos="29.499314818359505 -20.000088078042 233.0341561461596" quat="0.5737077962021063 -0.0034605152912729124 0.8190473813344117 0.0029625225879932183" density="0.001"/>
+          <joint name="mu1_001_joint_axis1" type="hinge" pos="29.499314818359505 -20.000088078042 233.0341561461596" axis="1.0 -1.0448849591115916e-08 7.3929458666022185e-09" limited="false" springref="0"/>
+          <joint name="mu1_001_joint_axis2" type="hinge" pos="29.499314818359505 -20.000088078042 233.0341561461596" axis="1.0448849840916097e-08 1.0000000000000002 5.079270337660091e-15" limited="false" springref="0"/>
+        </body>
+      </body>
+      <body name="pwp_001" pos="-0.499999982255449 -15.020000000570048 191.9658069223799" quat="0.5000000024124049 0.500000003937422 -0.49999999606258205 0.49999999758759106">
+        <geom name="pwp_001_mesh" type="mesh" mesh="pwp" material="color_2" pos="-0.499999982255449 -15.020000000570048 191.9658069223799" quat="0.5000000024124049 0.500000003937422 -0.49999999606258205 0.49999999758759106" density="0.001"/>
+        <body name="ax1_and_vein_001" pos="34.50226176995318 -15.01475636464427 226.96509766592507" quat="0.9999999810586435 -2.3458654940347877e-05 -1.4766878810312284e-05 -0.00019265083275959898">
+          <geom name="ax1_and_vein_001_mesh" type="mesh" mesh="ax1_and_vein" material="color_4" pos="34.50226176995318 -15.01475636464427 226.96509766592507" quat="0.9999999810586435 -2.3458654940347877e-05 -1.4766878810312284e-05 -0.00019265083275959898" density="0.001"/>
+          <joint name="ax1_and_vein_001_joint_alpha" type="hinge" pos="34.50226176995318 -15.01475636464427 226.96509766592507" axis="1.0 3.050025926265576e-09 -1.269965427264097e-08" limited="false"/>
+          <joint name="ax1_and_vein_001_joint_phi" type="hinge" pos="34.50226176995318 -15.01475636464427 226.96509766592507" axis="-3.0500261205546053e-09 1.0 8.132383655379272e-15" limited="false"/>
+          <joint name="ax1_and_vein_001_joint_theta" type="hinge" pos="34.50226176995318 -15.01475636464427 226.96509766592507" axis="1.2699653995085214e-08 -8.215650381887537e-15 1.0" limited="false"/>
+          <body name="wing_001" pos="44.50230526874693 -15.019683952877669 227.5329508466606" quat="2.4802328271285884e-05 0.9999999827160382 -0.00018368491865693612 1.4581451709358548e-05">
+            <geom name="wing_001_mesh" type="mesh" mesh="wing" material="color_9" pos="44.50230526874693 -15.019683952877669 227.5329508466606" quat="2.4802328271285884e-05 0.9999999827160382 -0.00018368491865693612 1.4581451709358548e-05" density="0.001"/>
+          </body>
+          <body name="ax1_001" pos="34.502077250029224 -15.01466623070618 226.96505647752977" quat="0.9999999829635295 -2.4566234341569948e-05 -1.5023460955155155e-05 -0.00018232864932454738">
+            <geom name="ax1_001_mesh" type="mesh" mesh="ax1" material="color_7" pos="34.502077250029224 -15.01466623070618 226.96505647752977" quat="0.9999999829635295 -2.4566234341569948e-05 -1.5023460955155155e-05 -0.00018232864932454738" density="0.001"/>
+          </body>
+          <body name="ax2_001" pos="34.50196772923989 -15.014653391411114 226.96508887245588" quat="0.999999983430619 -2.4310783298169412e-05 -1.4976572323082307e-05 -0.0001797872353357594">
+            <geom name="ax2_001_mesh" type="mesh" mesh="ax2" material="color_5" pos="34.50196772923989 -15.014653391411114 226.96508887245588" quat="0.999999983430619 -2.4310783298169412e-05 -1.4976572323082307e-05 -0.0001797872353357594" density="0.001"/>
+          </body>
+          <body name="vein_001" pos="34.50161128782199 -15.012412769833608 226.96507981087362" quat="0.9999999852304113 -2.4437966385263198e-05 -1.501266246790349e-05 -0.00016945967995089936">
+            <geom name="vein_001_mesh" type="mesh" mesh="vein" material="color_6" pos="34.50161128782199 -15.012412769833608 226.96507981087362" quat="0.9999999852304113 -2.4437966385263198e-05 -1.501266246790349e-05 -0.00016945967995089936" density="0.001"/>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <equality>
+    <connect body1="mu1_001" body2="ax1_and_vein_001" anchor="27.704696502575416 -20.012084376937338 228.10013146108477" solimp="1.0 1.0 0.001 0.5 2.0"/>
+    <connect body1="mu1_002" body2="ax1_and_vein_001" anchor="27.708549526085847 -10.012085130230378 228.0996623448919" solimp="1.0 1.0 0.001 0.5 2.0"/>
+    <connect body1="ax3_001" body2="ax1_and_vein_001" anchor="41.302520961391664 -14.299849836455998 227.53276489697703" solimp="1.0 1.0 0.001 0.5 2.0"/>
+  </equality>
+  <actuator>
+    <position name="sla_001_position" joint="sla_001_joint" gear="1" forcelimited="false" ctrllimited="false" kp="6.0e11"/>
+    <velocity name="sla_001_velocity" joint="sla_001_joint" gear="1" forcelimited="false" ctrllimited="false" kv="1.0e10"/>
+    <position name="scu_001_position" joint="scu_001_joint" gear="1" forcelimited="false" ctrllimited="false" kp="6.0e8"/>
+    <velocity name="scu_001_velocity" joint="scu_001_joint" gear="1" forcelimited="false" ctrllimited="false" kv="1.0e8"/>
+    <position name="ax3_001_position" joint="ax3_001_joint" gear="1" forcelimited="false" ctrllimited="false" kp="3.0e5"/>
+    <velocity name="ax3_001_velocity" joint="ax3_001_joint" gear="1" forcelimited="false" ctrllimited="false" kv="1.0e4"/>
+  </actuator>
+</mujoco>
