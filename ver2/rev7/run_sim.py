@@ -52,9 +52,9 @@ if __name__ == '__main__':
 
     signal.signal(signal.SIGINT, sigint_handler)
     
-    viewer.cam.distance = 513 
-    viewer.cam.azimuth =  149.35 
-    viewer.cam.elevation = -21 
+    viewer.cam.distance = 186.0
+    viewer.cam.azimuth =  144.0 
+    viewer.cam.elevation = -27 
     #viewer.cam.lookat = np.array([20.0, -15.0, 230.0])
     #viewer.cam.lookat = np.array([100.0, -100.0, 230.0])
     #viewer.cam.lookat = np.array([100.0, 0.0, 230.0])
