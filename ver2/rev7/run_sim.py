@@ -47,12 +47,13 @@ if __name__ == '__main__':
 
     viewer = mujoco_viewer.MujocoViewer(model, data)
     viewer.scn.flags[mujoco.mjtRndFlag.mjRND_SHADOW] = False
-    #viewer.render_mode = 'window'
-    viewer.render_mode = 'offscreen'
+    viewer.render_mode = 'window'
+    #viewer.render_mode = 'offscreen'
 
     signal.signal(signal.SIGINT, sigint_handler)
     
-    viewer.cam.distance = 186.0
+    #viewer.cam.distance = 186.0
+    viewer.cam.distance = 120.0
     viewer.cam.azimuth =  144.0 
     viewer.cam.elevation = -27 
     #viewer.cam.lookat = np.array([20.0, -15.0, 230.0])
